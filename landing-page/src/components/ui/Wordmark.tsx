@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { brand } from '../../content/copy'
 
 type Props = {
@@ -7,8 +8,8 @@ type Props = {
 
 export function Wordmark({ className = '', light = false }: Props) {
   return (
-    <a
-      href="#top"
+    <Link
+      to="/"
       className={`group inline-flex items-baseline gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive/40 rounded-sm ${className}`}
       aria-label={brand.product}
     >
@@ -26,6 +27,6 @@ export function Wordmark({ className = '', light = false }: Props) {
       >
         AI
       </span>
-    </a>
+    </Link>
   )
 }

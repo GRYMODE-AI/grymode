@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { brand, footer, hero } from '../../content/copy'
 import { useContact } from '../contact/ContactProvider'
 import { Reveal } from '../motion/Reveal'
@@ -30,6 +31,14 @@ export function Footer() {
                     >
                       {link.label}
                     </button>
+                  ) : link.href.startsWith('/') ? (
+                    <Link
+                      key={link.label}
+                      to={link.href}
+                      className="transition-colors hover:text-deep-olive"
+                    >
+                      {link.label}
+                    </Link>
                   ) : (
                     <a
                       key={link.label}
@@ -46,6 +55,8 @@ export function Footer() {
                   <a
                     key={link.label}
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="transition-colors hover:text-soft-black"
                   >
                     {link.label}

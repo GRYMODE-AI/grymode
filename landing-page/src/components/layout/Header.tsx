@@ -1,14 +1,21 @@
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { nav } from '../../content/copy'
 import { easeOutQuart } from '../../lib/motion'
 import { Button } from '../ui/Button'
 import { Wordmark } from '../ui/Wordmark'
 import { Container } from './Container'
 
+function homeHref(hash: string, isHome: boolean) {
+  return isHome ? hash : `/${hash}`
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     setScrolled(y > 12)
@@ -35,7 +42,7 @@ export function Header() {
             {nav.links.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={homeHref(link.href, isHome)}
                 className="whitespace-nowrap text-[13px] font-medium tracking-wide text-graphite transition-colors hover:text-soft-black"
               >
                 {link.label}
@@ -44,7 +51,7 @@ export function Header() {
           </nav>
         </div>
         <Button
-          href="#waitlist"
+          href={homeHref('#waitlist', isHome)}
           className="!shrink-0 !px-3.5 !py-1.5 !text-[11px] sm:!px-5 sm:!py-2 sm:!text-xs md:!px-6 md:!py-2.5 md:!text-sm"
         >
           {nav.cta}

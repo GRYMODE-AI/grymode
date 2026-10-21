@@ -164,14 +164,23 @@ export const nav = {
 
 export const footer = {
   links: [
-    { label: 'Privacy', href: 'https://grymode.ai/privacy' },
-    { label: 'Terms', href: 'https://grymode.ai/terms' },
+    { label: 'Privacy', href: '/privacy' },
+    { label: 'Terms', href: '/terms' },
     { label: 'Contact', href: '#contact', action: 'contact' as const },
   ],
   social: [
-    { label: 'Instagram', href: '#' },
-    { label: 'TikTok', href: '#' },
-    { label: 'X', href: '#' },
+    {
+      label: 'Instagram',
+      href: 'https://www.instagram.com/grymodeai',
+    },
+    {
+      label: 'TikTok',
+      href: 'https://www.tiktok.com/@grymodeai',
+    },
+    {
+      label: 'X',
+      href: 'https://x.com/grymodeai',
+    },
   ],
 } as const
 

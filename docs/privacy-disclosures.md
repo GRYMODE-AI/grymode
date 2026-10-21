@@ -29,4 +29,4 @@ linked, purpose App Functionality.
 - Terms: https://grymode.ai/terms (`LegalLinks.terms`)
 - Support: mailto:support@grymode.ai (`LegalLinks.support`)
 
-Draft copy lives in `docs/legal/`. Host live pages before submission.
+Rendered pages: landing-page routes `/privacy` and `/terms` (`landing-page/src/content/legal.ts`). Markdown mirrors live in `docs/legal/`.
