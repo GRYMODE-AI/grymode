@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>GMAPIBaseURL</key>
+	<string>$(GRYMODE_API_BASE_URL)</string>
+	<key>GMEnvironment</key>
+	<string>$(GRYMODE_ENVIRONMENT)</string>
+	<key>GMSupabaseURL</key>
+	<string>$(GRYMODE_SUPABASE_URL)</string>
+	<key>GMSupabasePublishableKey</key>
+	<string>$(GRYMODE_SUPABASE_PUBLISHABLE_KEY)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Oranienbaum-Regular.ttf</string>
+		<string>Unna-Regular.ttf</string>
+		<string>Unna-Italic.ttf</string>
+		<string>Unna-Bold.ttf</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+	</dict>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Grymode needs access to your photo library so you can add clothes to your wardrobe.</string>
+</dict>
+</plist>

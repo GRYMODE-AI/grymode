@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Oranienbaum';
+  src: url('/fonts/Oranienbaum-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unna';
+  src: url('/fonts/Unna-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unna';
+  src: url('/fonts/Unna-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unna';
+  src: url('/fonts/Unna-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-soft-black: #1a1a1a;
+  --color-warm-paper: #f5f3ef;
+  --color-surface: #fbfaf7;
+  --color-stone: #ece9e2;
+  --color-hairline: #dcd8cf;
+  --color-graphite: #56564f;
+  --color-muted-grey: #8a8a8a;
+  --color-deep-olive: #6b6b4b;
+  --color-olive-mist: #e7e6d6;
+
+  --font-display: 'Oranienbaum', 'Times New Roman', serif;
+  --font-heading: 'Unna', 'Times New Roman', serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --tracking-ultra: 0.22em;
+  --tracking-caps: 0.14em;
+
+  --breakpoint-xs: 390px;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-warm-paper);
+    color: var(--color-soft-black);
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    background-color: var(--color-warm-paper);
+    overscroll-behavior-y: none;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  ::selection {
+    background-color: var(--color-deep-olive);
+    color: var(--color-warm-paper);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

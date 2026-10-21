@@ -1,0 +1,10 @@
+# Supabase
+.branches
+.temp
+
+# Secrets (Resend, etc.) — keep .env.example tracked
+.env
+.env.keys
+.env.local
+.env.*.local
+!.env.example

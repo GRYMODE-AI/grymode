@@ -1,0 +1,11 @@
+#include "Base.xcconfig"
+
+GRYMODE_ENVIRONMENT = production
+
+// Must be set to the deployed HTTPS Cloud Run / custom domain before any release build is distributed.
+// The app refuses to start its networking layer while these are empty (see AppConfiguration).
+GRYMODE_API_BASE_URL =
+
+// The hosted Supabase project URL and its publishable (never secret) key.
+GRYMODE_SUPABASE_URL =
+GRYMODE_SUPABASE_PUBLISHABLE_KEY =

@@ -1,0 +1,2 @@
+# Invoked from the public landing page with the anon key as Bearer token.
+verify_jwt = true

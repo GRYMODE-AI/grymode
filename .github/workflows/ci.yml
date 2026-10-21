@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend and database
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --frozen --python 3.12
+
+      - name: Lint
+        run: |
+          uv run ruff format --check .
+          uv run ruff check .
+
+      - name: Type check
+        run: uv run mypy
+
+      - name: Unit tests
+        run: uv run pytest tests/unit -q
+
+      - name: Dependency audit
+        run: uv export --frozen --no-dev --no-hashes --format requirements-txt > /tmp/requirements.txt && uv run pip-audit --strict -r /tmp/requirements.txt
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.120.0
+
+      - name: Start local Supabase
+        working-directory: .
+        run: |
+          echo '[]' > supabase/signing_keys.json
+          supabase gen signing-key --algorithm ES256 --append
+          supabase start --exclude studio,postgres-meta,imgproxy,edge-runtime,logflare,vector,realtime,supavisor
+
+      - name: Database security tests (pgTAP)
+        working-directory: .
+        run: supabase test db
+
+      - name: Integration tests (real Auth, Postgres, and RLS)
+        env:
+          GRYMODE_REQUIRE_INTEGRATION: "1"
+        run: uv run pytest tests/integration -q
+
+      - name: Container builds
+        run: docker build --tag grymode-api:ci .
+
+  ios:
+    name: iOS build and unit tests
+    runs-on: macos-26
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select simulator
+        id: simulator
+        run: |
+          udid=$(xcrun simctl list devices available --json \
+            | jq -r '[.devices[] | .[] | select(.name | startswith("iPhone"))][0].udid')
+          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+
+      - name: Build for testing (warnings are reported)
+        run: |
+          set -o pipefail
+          xcodebuild build-for-testing -project Grymode.xcodeproj -scheme Grymode \
+            -destination "id=${{ steps.simulator.outputs.udid }}" -derivedDataPath ../build/DerivedData \
+            | tee ../build-ios.log
+          if grep -E "warning:" ../build-ios.log | grep -v appintents; then
+            echo "::error::Compiler warnings found"; exit 1
+          fi
+
+      - name: Format lint
+        run: xcrun swift-format lint --strict --recursive --configuration ../.swift-format Grymode GrymodeTests GrymodeUITests
+
+      - name: Unit tests
+        run: |
+          xcodebuild test-without-building -project Grymode.xcodeproj -scheme Grymode \
+            -destination "id=${{ steps.simulator.outputs.udid }}" -derivedDataPath ../build/DerivedData \
+            -only-testing:GrymodeTests

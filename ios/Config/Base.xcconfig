@@ -1,0 +1,12 @@
+// Shared build settings for every Grymode configuration.
+// Values here are not secrets. Never place API keys or provider credentials in xcconfig files.
+
+// Replace with the bundle identifier registered in App Store Connect before Phase 6.
+GRYMODE_BUNDLE_ID = com.grymode.stylist
+
+// Set to your Apple Developer Team ID (or leave empty for simulator-only builds).
+DEVELOPMENT_TEAM =
+
+IPHONEOS_DEPLOYMENT_TARGET = 17.0
+
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon

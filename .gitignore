@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcresult
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment and secrets — never commit real values
+.env
+.env.*
+!.env.example
+*.p8
+*.pem
+*.key
+service-account*.json
+
+# Supabase local state
+supabase/.branches/
+supabase/.temp/
+supabase/signing_keys.json
+
+# Local verification artifacts
+artifacts/
+
+# Node (landing-page and any future JS packages)
+node_modules/
+dist/

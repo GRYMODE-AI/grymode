@@ -1,0 +1,12 @@
+#include "Base.xcconfig"
+
+GRYMODE_ENVIRONMENT = development
+
+// Local FastAPI server. `$()` keeps `//` from being parsed as an xcconfig comment.
+// Use 127.0.0.1 (not localhost) so the simulator doesn't hit ::1 while uvicorn binds IPv4 only.
+GRYMODE_API_BASE_URL = http:/$()/127.0.0.1:8000
+
+// Local Supabase stack (`supabase start`). The publishable key is the fixed, public key the
+// Supabase CLI uses for every local project; it grants nothing beyond row level security.
+GRYMODE_SUPABASE_URL = http:/$()/127.0.0.1:54321
+GRYMODE_SUPABASE_PUBLISHABLE_KEY = sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH
